@@ -1,0 +1,24 @@
+spring:
+  data:
+    mongodb:
+      uri: ${ORDER_MONGO_URL:mongodb://localhost:27071/order}
+  kafka:
+    ordercreatedtopic: "orderevent"
+    cancelordertopic: "cancelorder"
+    itemcreatedlisteners:
+      group-id: item-created-listeners
+    orderexpireconsumer:
+      group-id: order-expire-listeners
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties[request.timeout.ms]: 600000
+    admin:
+      properties:
+        bootstrap-servers: kafka-service:9092
+    bootstrap-servers: kafka-service:9092
+
+server:
+  port: 8083
+
+
