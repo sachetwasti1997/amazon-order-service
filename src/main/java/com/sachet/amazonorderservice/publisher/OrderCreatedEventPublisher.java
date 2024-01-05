@@ -23,7 +23,7 @@ public class OrderCreatedEventPublisher {
     private final ObjectMapper objectMapper;
     private final String topic;
 
-    public OrderCreatedEventPublisher(@Value("") String topic,
+    public OrderCreatedEventPublisher(@Value("${spring.kafka.ordercreatedtopic}") String topic,
                                       KafkaTemplate<String, String> kafkaTemplate,
                                       ObjectMapper objectMapper) {
         this.topic = topic;
@@ -36,9 +36,9 @@ public class OrderCreatedEventPublisher {
         OrderCreatedEventModal modal = new OrderCreatedEventModal(
                 order.getId(),
                 order.getStatus(),
-                order.getUserId(),
                 order.getExpiresAt().toString(),
                 order.getItemId(),
+                order.getQuantity(),
                 order.getItemPrice()
         );
         String value = objectMapper.writeValueAsString(modal);

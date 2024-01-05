@@ -21,5 +21,6 @@ public class Order {
     private String status;
     private Date expiresAt;
     private String itemId;
+    private Integer quantity;
     private Double itemPrice;
 }

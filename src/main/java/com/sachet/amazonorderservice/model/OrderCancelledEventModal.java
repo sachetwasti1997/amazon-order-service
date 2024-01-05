@@ -11,5 +11,5 @@ import lombok.Setter;
 @Setter
 public class OrderCancelledEventModal {
     private String orderId;
-    private String menuId;
+    private String itemId;
 }
