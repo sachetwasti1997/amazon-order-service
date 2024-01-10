@@ -5,10 +5,9 @@ spring:
   kafka:
     ordercreatedtopic: "orderevent"
     cancelordertopic: "cancelorder"
-    itemcreatedlisteners:
-      group-id: item-created-listeners
-    orderexpireconsumer:
-      group-id: order-expire-listeners
+    expireordertopic: "expireorder"
+    orderserviceconsumer:
+      group-id: order-service-listeners
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer

@@ -19,15 +19,12 @@ import java.util.Map;
 public class ConsumerConfig {
 
     private final String bootstrapAddress;
-    private final String itemCreateListenerGroup;
-    private final String expireGroup;
+    private final String orderListeners;
 
     public ConsumerConfig(@Value("${spring.kafka.bootstrap-servers}") String bootstrapAddress,
-                          @Value("${spring.kafka.itemcreatedlisteners.group-id}") String createdGroup,
-                          @Value("${spring.kafka.orderexpireconsumer.group-id}") String expireGroup) {
+                          @Value("${spring.kafka.orderserviceconsumer.group-id}") String orderListeners) {
         this.bootstrapAddress = bootstrapAddress;
-        this.itemCreateListenerGroup = createdGroup;
-        this.expireGroup = expireGroup;
+        this.orderListeners = orderListeners;
     }
 
     public DefaultErrorHandler errorHandler() {
@@ -52,7 +49,7 @@ public class ConsumerConfig {
     ConcurrentKafkaListenerContainerFactory<String,String> kafkaItemCreatedListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(createConsumerFactory(itemCreateListenerGroup));
+        factory.setConsumerFactory(createConsumerFactory(orderListeners));
         factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
         return factory;
     }
@@ -62,7 +59,7 @@ public class ConsumerConfig {
     kafkaOrderExpiredListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(createConsumerFactory(expireGroup));
+        factory.setConsumerFactory(createConsumerFactory(orderListeners));
         factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
         return factory;
     }

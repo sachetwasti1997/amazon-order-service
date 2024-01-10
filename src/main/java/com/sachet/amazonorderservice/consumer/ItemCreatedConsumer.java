@@ -29,7 +29,7 @@ public class ItemCreatedConsumer implements AcknowledgingMessageListener<String,
     @Override
     @KafkaListener(
             topics = {"item-created-event"},
-            groupId = "${spring.kafka.itemcreatedlisteners.group-id}",
+            groupId = "${spring.kafka.orderserviceconsumer.group-id}",
             containerFactory = "kafkaItemCreatedListenerContainerFactory"
     )
     public void onMessage(@NonNull ConsumerRecord<String, String> data,
