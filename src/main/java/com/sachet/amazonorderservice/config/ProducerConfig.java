@@ -9,8 +9,8 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class ProducerConfig {
 
-    private String orderCreatedTopic;
-    private String cancelOrderTopic;
+    private final String orderCreatedTopic;
+    private final String cancelOrderTopic;
 
     public ProducerConfig(@Value("${spring.kafka.ordercreatedtopic}") String orderCreatedTopic,
                           @Value("${spring.kafka.cancelordertopic}") String cancelOrderTopic) {

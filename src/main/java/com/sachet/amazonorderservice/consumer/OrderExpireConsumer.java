@@ -38,9 +38,18 @@ public class OrderExpireConsumer implements AcknowledgingMessageListener<String,
         LOGGER.info("Order ConsumerRecord {}", data);
         try {
             OrderCancelledEventModal order = objectMapper.readValue(data.value(), OrderCancelledEventModal.class);
-            orderRepository.deleteById(order.getOrderId());
+            Optional<Order> optionalOrder = orderRepository.findById(order.getOrderId());
+            if (optionalOrder.isEmpty()) {
+                throw new Exception("Order not found");
+            }
+            Order savedOrder = optionalOrder.get();
+            savedOrder.setStatus("ORDER_EXPIRED");
+            orderRepository.save(savedOrder);
+            acknowledgment.acknowledge();
         } catch (JsonProcessingException ex) {
             LOGGER.error("Received error when reading item-created-event {}", ex.getMessage());
+        }catch (Exception ex) {
+            LOGGER.error("Error {}", ex.getMessage());
         }
     }
 }

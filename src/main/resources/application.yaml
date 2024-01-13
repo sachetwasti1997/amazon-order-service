@@ -6,6 +6,7 @@ spring:
     ordercreatedtopic: "orderevent"
     cancelordertopic: "cancelorder"
     expireordertopic: "expireorder"
+    paymentTopic: "paymentStatusTopic"
     orderserviceconsumer:
       group-id: order-service-listeners
     producer:
