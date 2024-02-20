@@ -39,7 +39,8 @@ public class OrderCreatedEventPublisher {
                 order.getExpiresAt().toString(),
                 order.getItemId(),
                 order.getQuantity(),
-                order.getItemPrice()
+                order.getItemPrice(),
+                order.getUserEmail()
         );
         String value = objectMapper.writeValueAsString(modal);
         LOGGER.info("Sending order created event {}", value);

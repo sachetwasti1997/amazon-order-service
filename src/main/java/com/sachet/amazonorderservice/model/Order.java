@@ -17,7 +17,7 @@ import java.util.Date;
 public class Order {
     @Id
     private String id;
-    private String userId;
+    private String userEmail;
     private String status;
     private Date expiresAt;
     private String itemId;
