@@ -17,7 +17,12 @@ import java.util.Date;
 public class Order {
     @Id
     private String id;
+    private String sellerEmail;
+    private String sellerContact;
     private String userEmail;
+    private String userContact;
+    private String itemImage;
+    private String itemTitle;
     private String status;
     private Date expiresAt;
     private String itemId;

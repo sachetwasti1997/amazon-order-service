@@ -30,6 +30,10 @@ public class OrderService {
         this.orderCreatedEventPublisher = orderCreatedEventPublisher;
     }
 
+    public List<Order> getUserOrder(String userEmail) {
+        return orderRepository.findByUserEmailOrderByExpiresAtDesc(userEmail);
+    }
+
     public Order createOrder(Order order) throws Exception {
         String itemId = order.getItemId();
 
@@ -54,7 +58,7 @@ public class OrderService {
         //set the expiration date
         LOGGER.info("Setting the expire Date {}", itemId);
         Date expireDate = new Date();
-        expireDate.setTime(expireDate.getTime() + (1000 * 60 * 60));
+        expireDate.setTime(expireDate.getTime() + (1000 * 60));
         order.setExpiresAt(expireDate);
 
         //set the order status
